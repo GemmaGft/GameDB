@@ -15,10 +15,8 @@ public class SecurityConfiguration {
 
     @Bean
     public DefaultSecurityFilterChain FilterChain(HttpSecurity http) throws Exception{
-
         http.authorizeHttpRequests((authz)-> authz.antMatchers(HttpMethod.POST, "/api/**").hasAnyRole("USER","ADMIN")
-                        .antMatchers(HttpMethod.GET, "/**").hasAnyRole("USER", "ADMIN")
-                        .antMatchers(HttpMethod.GET, "/api/**").permitAll()
+                        .antMatchers(HttpMethod.GET, "/api/**").hasAnyRole("USER","ADMIN")
                         .antMatchers(HttpMethod.PUT,"/api/**").hasAnyRole("USER","ADMIN")
                         .antMatchers(HttpMethod.PATCH,"/api/**").hasAnyRole("USER","ADMIN")
                         .antMatchers(HttpMethod.DELETE,"/api/**").hasRole("ADMIN"))
