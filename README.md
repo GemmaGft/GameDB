@@ -16,7 +16,7 @@
 - Get details of the game
 - Get a list of game achievements
 - Get a list of game trailers
-- 
+
 ### Genres
 - Get a list of video game genres
 - Get details of the genre
@@ -26,4 +26,11 @@
 - Get a list of parent platforms
 - Get details of the platform
 
+### Publishers
+- Get a list of video game Publishers
+- Get details of the Publishers
+
+### Tags
+- Get a list of tags
+- Get details of the tag
 
