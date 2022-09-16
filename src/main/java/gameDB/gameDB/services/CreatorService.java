@@ -1,29 +1,25 @@
 package gameDB.gameDB.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.api.CreatorsApi;
+import org.openapitools.client.auth.ApiKeyAuth;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
-
-import java.util.HashMap;
 
 @Service
 public class CreatorService {
-
-    @Value("${rawg.api_key}")
-    private String api_key;
-    @Value("${rawg.base_path}")
-    private String base_path;
-    WebClient webClient = WebClient.create("https://api.rawg.io/api/");
-
-    public HashMap<String, Object> getCreators() {
-            return webClient.get()
-                    .uri(uriBuilder -> uriBuilder.path("creators").queryParam("key", api_key).build())
-                    .retrieve().bodyToMono(HashMap.class).block();
+    private final CreatorsApi apiInstance;
+    public CreatorService(
+            @Value("${rawg.base_path}") String base_url,
+            @Value("${rawg.api_key}") String my_api_key
+    ) {
+        ApiClient defaultClient = new ApiClient();
+        defaultClient.setBasePath(base_url);
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("key");
+        api_key.setApiKey(my_api_key);
+        this.apiInstance = new CreatorsApi(defaultClient);
     }
-
-    public HashMap<String, Object> getCreatorById(int id) {
-        return webClient.get().uri(uriBuilder -> uriBuilder.path("creators/" + id).queryParam("key", api_key).build())
-                .retrieve().bodyToMono(HashMap.class).block();
+    public CreatorsApi getApiInstance() {
+        return apiInstance;
     }
 }

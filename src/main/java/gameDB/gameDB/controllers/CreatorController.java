@@ -1,6 +1,7 @@
 package gameDB.gameDB.controllers;
 
 import gameDB.gameDB.services.CreatorService;
+import gameDB.gameDB.services.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,13 +16,12 @@ public class CreatorController {
     @Autowired
     CreatorService creatorService;
 
-    @GetMapping("/creators")
-    public HashMap<String, Object> getCreators() {
-        return creatorService.getCreators();
+    @RequestMapping("/creators")
+    Object getCreators() {
+        return creatorService.getApiInstance().creatorsList(1,15);
     }
-    @GetMapping("/creators/{id}")
-    public HashMap<String, Object> getCreatorById(@PathVariable int id) {
-        return creatorService.getCreatorById(id);
+    @RequestMapping("/creators/{id}")
+    Object getMovie(@PathVariable String id) {
+        return creatorService.getApiInstance().creatorsRead(id);
     }
-
 }
